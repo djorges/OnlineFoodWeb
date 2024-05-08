@@ -1,9 +1,9 @@
-import './App.css';
 import {Navbar} from "../Navbar/Navbar";
 import {CssBaseline, ThemeProvider} from "@mui/material";
 import {darkTheme} from "../../theme/DarkTheme";
 import Home from "../Home/Home";
 import RestaurantDetails from "../Restaurant/RestaurantDetails";
+import {Cart} from "../Cart/Cart";
 
 function App() {
   return (
@@ -11,10 +11,9 @@ function App() {
         <ThemeProvider theme={darkTheme}>
             <CssBaseline />
             <Navbar />
-{/*
-            <Home />
-*/}
-            <RestaurantDetails />
+            {/*<Home />*/}
+            {/*<RestaurantDetails />*/}
+            <Cart />
         </ThemeProvider>
     </div>
   );
