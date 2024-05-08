@@ -6,20 +6,29 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name = "categories")
+@Table(name = "cart_items")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryEntity {
+public class CartItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private int quantity;
+
+    private List<String> ingredients;
+
+    private Long totalPrice;
+
+    @ManyToOne
+    private FoodEntity food;
 
     @ManyToOne
     @JsonIgnore
-    private RestaurantEntity restaurant;
+    private CartEntity cart;
 }

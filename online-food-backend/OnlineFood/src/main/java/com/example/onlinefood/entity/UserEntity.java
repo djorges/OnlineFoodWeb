@@ -26,7 +26,7 @@ public class UserEntity {
 
     private String password;
 
-    private UserRoles role;
+    private UserRoles role = UserRoles.ROLE_CUSTOMER;
 
     //
     @JsonIgnoreProperties("user")//or @JsonIgnore

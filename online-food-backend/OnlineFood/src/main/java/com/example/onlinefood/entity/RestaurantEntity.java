@@ -30,7 +30,7 @@ public class RestaurantEntity {
 
     private LocalDateTime registrationDate;
 
-    private boolean open;
+    private boolean isOpen;
 
     @OneToOne
     private UserEntity owner;
