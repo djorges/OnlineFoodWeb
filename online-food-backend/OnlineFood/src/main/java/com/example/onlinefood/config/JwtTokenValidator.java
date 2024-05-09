@@ -35,17 +35,15 @@ public class JwtTokenValidator extends OncePerRequestFilter {
         var jwt = request.getHeader(JWT_HEADER);
 
         if(jwt != null){
-            jwt = jwt.substring(7);
+            jwt = jwt.substring(7); //Omit prefix
 
             try{
-                // Set Signing Key
-                val key = Keys.hmacShaKeyFor(JWT_SECRET_KEY.getBytes());
+                //Get claims
                 val claims = Jwts.parserBuilder()
-                        .setSigningKey(key)
+                        .setSigningKey(Keys.hmacShaKeyFor(JWT_SECRET_KEY.getBytes()))
                         .build()
                         .parseClaimsJws(jwt)
                         .getBody();
-                //Get claims
                 val email = String.valueOf(claims.get("email"));
                 val authorities = String.valueOf(claims.get("authorities"));
 
