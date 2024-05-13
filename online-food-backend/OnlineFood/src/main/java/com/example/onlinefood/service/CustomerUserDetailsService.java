@@ -22,15 +22,13 @@ public class CustomerUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //Find user in DB by email
         val user = userRepository.findByEmail(username);
-        if(user != null){
+        if(user == null){
             throw new UsernameNotFoundException("User not found with email"+username);
         }
 
         //Create UserDetails
-        var role = user.getRole();
-
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(role.toString()));
+        authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
 
         return new User(
             user.getEmail(),
