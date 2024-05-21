@@ -1,5 +1,6 @@
 package com.example.onlinefood.service;
 
+import com.example.onlinefood.config.JwtProvider;
 import com.example.onlinefood.entity.UserEntity;
 import com.example.onlinefood.exception.InvalidOperationException;
 import com.example.onlinefood.exception.UserNotFoundException;
@@ -19,6 +20,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private JwtProvider jwtProvider;
 
     @Override
     public UserEntity saveUser(UserEntity entity) {
@@ -39,14 +42,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserEntity findUserByEmail(UserEntity entity) {
+    public UserEntity findUserByEmail(String email) {
         //Find user in db
-        val user = userRepository.findByEmail(entity.getEmail());
+        val user = userRepository.findByEmail(email);
 
         if(user == null){
             throw new UserNotFoundException("User not found with email.");
         }
 
         return user;
+    }
+
+    @Override
+    public UserEntity findUserByJwtToken(String token) throws Exception {
+        String email = jwtProvider.getEmailFromJwtToken(token);
+        return findUserByEmail(email);
     }
 }

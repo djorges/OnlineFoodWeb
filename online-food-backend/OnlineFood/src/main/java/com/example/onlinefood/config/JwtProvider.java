@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import javax.crypto.SecretKey;
 import java.util.Date;
 
 
@@ -21,7 +20,7 @@ public class JwtProvider {
     private String JWT_SECRET_KEY;
 
     @Value("${jwt.expiration_time_in_millis}")
-    private int JWT_EXPIRATION_TIME_IN_MILLIS;
+    private long JWT_EXPIRATION_TIME_IN_MILLIS;
 
     public String generateToken(Authentication auth){
 
@@ -49,7 +48,6 @@ public class JwtProvider {
                 .build()
                 .parseClaimsJws(jwt)
                 .getBody();
-        val email = String.valueOf(claims.get("email"));
-        return email;
+        return String.valueOf(claims.get("email"));
     }
 }

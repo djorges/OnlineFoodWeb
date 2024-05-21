@@ -1,6 +1,7 @@
 package com.example.onlinefood.config;
 
 import lombok.val;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,11 +17,15 @@ import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 
 @Configuration
 @EnableWebSecurity
 public class AppConfig {
+    @Autowired
+    private JwtTokenValidator jwtTokenValidator;
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http    .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -31,7 +36,7 @@ public class AppConfig {
                             .requestMatchers("/api/**").authenticated()
                             .anyRequest().permitAll()
                 )
-                .addFilterBefore(new JwtTokenValidator(), BasicAuthenticationFilter.class)
+                .addFilterBefore(jwtTokenValidator, BasicAuthenticationFilter.class)
 
         ;
         return http.build();
@@ -48,7 +53,7 @@ public class AppConfig {
             cfg.setAllowedMethods(Collections.singletonList("*"));
             cfg.setAllowCredentials(true);
             cfg.setAllowedHeaders(Collections.singletonList("*"));
-            cfg.setExposedHeaders(Arrays.asList("Authorization"));
+            cfg.setExposedHeaders(List.of("Authorization"));
             cfg.setMaxAge(3600L);
 
             return cfg;
