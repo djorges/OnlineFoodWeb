@@ -3,7 +3,7 @@ package com.example.onlinefood.service;
 import com.example.onlinefood.config.JwtProvider;
 import com.example.onlinefood.entity.UserEntity;
 import com.example.onlinefood.exception.InvalidOperationException;
-import com.example.onlinefood.exception.UserNotFoundException;
+import com.example.onlinefood.exception.EntityNotFoundException;
 import com.example.onlinefood.repository.UserRepository;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
         val user = userRepository.findByEmail(email);
 
         if(user == null){
-            throw new UserNotFoundException("User not found with email.");
+            throw new EntityNotFoundException("User not found with email.");
         }
 
         return user;

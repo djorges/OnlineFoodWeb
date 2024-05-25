@@ -11,14 +11,15 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler({ UserNotFoundException.class })
-    protected ResponseEntity<Object> handleNotFound(
-            Exception ex, WebRequest request) {
+    @ExceptionHandler({ InvalidOperationException.class, EntityNotFoundException.class })
+    protected ResponseEntity<Object> handleBadRequest(
+            Exception ex, WebRequest request
+    ) {
         return handleExceptionInternal(
                 ex,
                 ex.getMessage(),
                 new HttpHeaders(),
-                HttpStatus.NOT_FOUND,
+                HttpStatus.BAD_REQUEST,
                 request
         );
     }

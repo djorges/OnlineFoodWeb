@@ -34,7 +34,7 @@ public class UserEntity {
     private UserRole role = UserRole.ROLE_CUSTOMER;
 
     //
-    @JsonIgnoreProperties("user")//or @JsonIgnore
+    @JsonIgnoreProperties("user")
     @OneToMany(
         fetch = FetchType.LAZY,
         cascade = CascadeType.ALL,
@@ -42,7 +42,7 @@ public class UserEntity {
     )
     private List<OrderEntity> orders = new ArrayList<>();
 
-    @JsonIgnoreProperties("user")//or @JsonIgnore
+    @JsonIgnoreProperties("user")
     @OneToMany(
         fetch = FetchType.LAZY,
         cascade = CascadeType.ALL,
