@@ -4,6 +4,7 @@ import {darkTheme} from "../../theme/DarkTheme";
 import Home from "../Home/Home";
 import RestaurantDetails from "../Restaurant/RestaurantDetails";
 import {Cart} from "../Cart/Cart";
+import Profile from "../Profile/Profile";
 
 function App() {
   return (
@@ -13,7 +14,8 @@ function App() {
             <Navbar />
             {/*<Home />*/}
             {/*<RestaurantDetails />*/}
-            <Cart />
+            {/*<Cart/>*/}
+            <Profile />
         </ThemeProvider>
     </div>
   );
